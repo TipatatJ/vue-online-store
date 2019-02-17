@@ -33,14 +33,12 @@
 <script>
 export default {
   name: "product",
-  data() {
-    return {
-      product: this.$store.getters.product(this.$route.params.id)
-    };
-  },
   methods: {
     imagePath(product) {
       return require(`../assets/img/products/${product.images[0]}`);
+  computed: {
+    product() {
+      return this.$store.getters.product(this.$route.params.id);
     }
   }
 };
