@@ -1,29 +1,6 @@
 # vue-online-store
 
-## Project setup
-```
-yarn install
-```
+Followed the tutorials that Nathan Magyar wrote for our weekly JS working group:
+https://medium.com/@magyarn/build-an-online-store-with-vue-cli-part-6-4482129d15f3
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+With some modifications.
