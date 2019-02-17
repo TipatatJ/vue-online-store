@@ -31,11 +31,11 @@
 </template>
 
 <script>
+import { imagePath } from "@/mixins/imagePath.js";
+
 export default {
   name: "product",
-  methods: {
-    imagePath(product) {
-      return require(`../assets/img/products/${product.images[0]}`);
+  mixins: [imagePath],
   computed: {
     product() {
       return this.$store.getters.product(this.$route.params.id);
