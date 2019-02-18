@@ -4,12 +4,28 @@
       <h1 class="flex-col--2">My Store</h1>
       <div class="flex-col--2 nav-items">
         <router-link to="/" class="nav-items__item">Home</router-link> |
-        <router-link to="/cart" class="nav-items__item">Cart</router-link>
+        <router-link to="/cart" class="nav-items__item">
+          Cart
+          <CounterBadge :count="cartItemsCount" />
+        </router-link>
       </div>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import CounterBadge from "@/components/CounterBadge";
+export default {
+  name: "app",
+  components: { CounterBadge },
+  computed: {
+    cartItemsCount() {
+      return this.$store.state.cart.length;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
