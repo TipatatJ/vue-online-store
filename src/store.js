@@ -81,7 +81,10 @@ export default new Vuex.Store({
   },
   mutations: {
     addToCart(state, productId) {
-      state.cart.push(Number(productId));
+      let product = state.products.find(
+        product => product.id === Number(productId)
+      );
+      if (product.quantity > 0) state.cart.push(Number(productId));
     },
     decrementProductInventory(state, productId) {
       let product = state.products.find(
