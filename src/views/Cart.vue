@@ -11,6 +11,13 @@
             <p>Color: {{ item.color }}</p>
           </div>
           <p>${{ item.price }}</p>
+          <button
+            type="button"
+            @click="removeFromCart(item.id)"
+            class="btn cart-list__btn-remove"
+          >
+            Remove
+          </button>
         </div>
       </li>
     </ul>
@@ -26,6 +33,11 @@ export default {
   computed: {
     cartItems() {
       return this.$store.getters.cartItems;
+    }
+  },
+  methods: {
+    removeFromCart(itemId) {
+      this.$store.dispatch("removeFromCart", itemId);
     }
   }
 };
@@ -54,5 +66,12 @@ export default {
 .thumbnail {
   max-width: 50px;
   margin-top: 0.5rem;
+}
+
+.cart-list__btn-remove {
+  margin-top: 0.5rem;
+  &:hover {
+    color: red;
+  }
 }
 </style>

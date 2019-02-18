@@ -88,12 +88,27 @@ export default new Vuex.Store({
         product => product.id === Number(productId)
       );
       if (product && product.quantity > 0) product.quantity--;
+    },
+
+    removeFromCart(state, productId) {
+      let indexToDelete = state.cart.indexOf(Number(productId));
+      if (indexToDelete >= 0) state.cart.splice(indexToDelete, 1);
+    },
+    incrementProductInventory(state, productId) {
+      let product = state.products.find(
+        product => product.id === Number(productId)
+      );
+      product.quantity++;
     }
   },
   actions: {
     addToCart({ commit }, productId) {
       commit("addToCart", productId);
       commit("decrementProductInventory", productId);
+    },
+    removeFromCart({ commit }, productId) {
+      commit("removeFromCart", productId);
+      commit("incrementProductInventory", productId);
     }
   },
   getters: {
