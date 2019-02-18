@@ -82,8 +82,13 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   getters: {
+    // product is a function that takes state and returns a function that takes
+    // id and returns a product
     product: state => id => {
       return state.products.filter(p => p.id === Number(id))[0];
+    },
+    cartItems: (state, getters) => {
+      return state.cart.map(getters.product);
     }
   }
 });
