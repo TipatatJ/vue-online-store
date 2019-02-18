@@ -32,7 +32,7 @@ export default {
       return this.$store.state.products;
     },
     featuredProducts() {
-      return this.$store.getters.featuredProducts;
+      return this.$store.getters.featuredProducts.slice(0, 3);
     }
   }
 };
