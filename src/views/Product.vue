@@ -9,6 +9,9 @@
         />
         <div class="flex-col--2">
           <h2>{{ product.name }}</h2>
+          <button type="button" @click="addToCart" class="btn btn--grey">
+            Add to Cart
+          </button>
           <p>Prize: ${{ product.price }}</p>
           <p>Size: {{ product.size }}</p>
           <p>Color: {{ product.color }}</p>
@@ -40,6 +43,11 @@ export default {
     product() {
       return this.$store.getters.product(this.$route.params.id);
     }
+  },
+  methods: {
+    addToCart() {
+      this.$store.dispatch("addToCart", this.$route.params.id);
+    }
   }
 };
 </script>
@@ -60,5 +68,25 @@ export default {
 
 .flex-col--align-center {
   align-items: center;
+}
+
+.btn {
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  border: none;
+  background-color: transparent;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn--grey {
+  background-color: #2c3e50;
+  color: #fff;
+  &:hover,
+  &:focus {
+    background-color: #42b983;
+  }
 }
 </style>

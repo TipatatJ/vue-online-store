@@ -79,8 +79,23 @@ export default new Vuex.Store({
       }
     ]
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    addToCart(state, productId) {
+      state.cart.push(Number(productId));
+    },
+    decrementProductInventory(state, productId) {
+      let product = state.products.find(
+        product => product.id === Number(productId)
+      );
+      if (product && product.quantity > 0) product.quantity--;
+    }
+  },
+  actions: {
+    addToCart({ commit }, productId) {
+      commit("addToCart", productId);
+      commit("decrementProductInventory", productId);
+    }
+  },
   getters: {
     // product is a function that takes state and returns a function that takes
     // id and returns a product
