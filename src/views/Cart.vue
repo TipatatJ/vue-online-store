@@ -1,26 +1,73 @@
 <template>
   <div class="wrapper">
     <h1>Cart</h1>
-    <ul>
-      <li v-for="item in cartItems" class="flex-col cart-list__item">
-        <img :src="imagePath(item)" class="thumbnail" alt="product thumnail" />
-        <div class="flex-col cart-list__item__details">
-          <div>
-            <p>{{ item.name }}</p>
-            <p>Size: {{ item.size }}</p>
-            <p>Color: {{ item.color }}</p>
+    <div class="flex-col">
+      <ul>
+        <li v-for="item in cartItems" class="flex-col cart-list__item">
+          <img
+            :src="imagePath(item)"
+            class="thumbnail"
+            alt="product thumnail"
+          />
+          <div class="flex-col cart-list__item__details">
+            <div>
+              <p>{{ item.name }}</p>
+              <p>Size: {{ item.size }}</p>
+              <p>Color: {{ item.color }}</p>
+            </div>
+            <p>${{ item.price }}</p>
+            <button
+              type="button"
+              @click="removeFromCart(item.id)"
+              class="btn cart-list__btn-remove"
+            >
+              Remove
+            </button>
           </div>
-          <p>${{ item.price }}</p>
-          <button
-            type="button"
-            @click="removeFromCart(item.id)"
-            class="btn cart-list__btn-remove"
-          >
-            Remove
-          </button>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+      <section class="total-section" v-if="cartItemsCount > 0">
+        <ul class="total-section-list">
+          <li class="total-section__item">
+            <p class="total-section__item__label">{{ cartItemsCount }} items</p>
+            <p>{{ itemsSubtotal }}</p>
+          </li>
+          <li class="total-section__item">
+            <p class="total-section__item__label">Shipping</p>
+            <select v-model="selectedShippingOption">
+              <option disabled value="">Please select an option</option>
+              <option
+                v-for="option in shippingOptionsArray"
+                :key="option.text"
+                :value="option.rate"
+              >
+                {{ option.text }} (${{ option.rate }})
+              </option>
+            </select>
+          </li>
+          <li class="total-section__item">
+            <p class="total-section__item__label">Subtotal</p>
+            <p>{{ subtotal }}</p>
+          </li>
+          <li class="total-section__item">
+            <p class="total-section__item__label">Tax(6%)</p>
+            <p>{{ salesTaxApplied }}</p>
+          </li>
+          <li class="total-section__item">
+            <p class="total-section__item__label">Total</p>
+            <p>{{ total }}</p>
+          </li>
+        </ul>
+
+        <button
+          :disabled="!this.selectedShippingOption"
+          class="btn btn--grey total-section__checkout-button"
+        >
+          Check out
+        </button>
+      </section>
+      <section v-else><p>Your cart is empty.</p></section>
+    </div>
   </div>
 </template>
 
@@ -30,9 +77,62 @@ import { imagePath } from "@/mixins/imagePath.js";
 export default {
   name: "cart",
   mixins: [imagePath],
+  data() {
+    return {
+      salesTax: 0.06,
+      selectedShippingOption: "",
+      shippingOptionsArray: [
+        {
+          text: "One day",
+          rate: 20
+        },
+        {
+          text: "Two days",
+          rate: 15
+        },
+        {
+          text: "Three to five days",
+          rate: 10
+        },
+        {
+          text: "One week or more",
+          rate: 5
+        }
+      ]
+    };
+  },
   computed: {
     cartItems() {
       return this.$store.getters.cartItems;
+    },
+    cartItemsCount() {
+      return this.cartItems.length;
+    },
+    itemsSubtotal() {
+      return this.cartItems.reduce((total, item) => total + item.price, 0);
+    },
+    subtotal() {
+      return Number(this.itemsSubtotal);
+    },
+    salesTaxPercentage() {
+      return `${this.salesTax * 100}%`;
+    },
+    salesTaxApplied() {
+      return (this.subtotal * this.salesTax).toFixed(2);
+    },
+    total() {
+      if (this.cartItemsCount <= 0) {
+        return "---";
+      }
+
+      if (this.selectedShippingOption) {
+        return (
+          Number(this.subtotal) +
+          Number(this.salesTaxApplied) +
+          +Number(this.selectedShippingOption)
+        );
+      }
+      return "Please select a shipping option";
     }
   },
   methods: {
