@@ -4,7 +4,7 @@
       <h2>Featured Items</h2>
       <ul class="featured-items">
         <li
-          v-for="product in products"
+          v-for="product in featuredProducts"
           :key="product.id"
           class="featured-items__item"
         >
@@ -30,6 +30,9 @@ export default {
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    featuredProducts() {
+      return this.$store.getters.featuredProducts;
     }
   }
 };

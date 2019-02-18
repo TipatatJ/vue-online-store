@@ -245,6 +245,9 @@ export default new Vuex.Store({
     },
     cartItems: (state, getters) => {
       return state.cart.map(getters.product);
+    },
+    featuredProducts: state => {
+      return state.products.filter(p => p.featured);
     }
   }
 });
