@@ -174,4 +174,35 @@ export default {
     color: red;
   }
 }
+
+.total-section {
+  background: #fafafa;
+  padding: 0 1rem 1rem;
+  min-width: 33%;
+  margin-left: 1em;
+}
+
+.total-section-list {
+  margin: 0;
+  padding: 0;
+}
+
+.total-section__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-section__item__label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.total-section__checkout-button {
+  width: 100%;
+}
+
+.total-section__checkout-button:disabled {
+  opacity: 0.2;
+}
 </style>

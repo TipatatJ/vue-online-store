@@ -42,3 +42,26 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.item-grid {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.item-grid__item {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 1rem;
+  flex: 0 0 33.3%;
+  @media only screen and (max-width: 832px) {
+    flex: 0 0 50%;
+  }
+  @media only screen and (max-width: 475px) {
+    flex: 0 0 100%;
+  }
+}
+</style>

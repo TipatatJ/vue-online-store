@@ -60,6 +60,7 @@ export default {
 
 .flex-col--2 {
   width: 50%;
+  margin-right: 1em;
 }
 
 .flex-justify-right {
