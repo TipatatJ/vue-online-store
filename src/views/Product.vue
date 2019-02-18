@@ -53,4 +53,12 @@ export default {
 .flex-col--2 {
   width: 50%;
 }
+
+.flex-justify-right {
+  text-align: right;
+}
+
+.flex-col--align-center {
+  align-items: center;
+}
 </style>
