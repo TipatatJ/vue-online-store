@@ -3,7 +3,7 @@
     <h1>Cart</h1>
     <div class="flex-col">
       <ul>
-        <li v-for="item in cartItems" class="flex-col cart-list__item">
+        <li v-for="item in uniqueCartItems" class="flex-col cart-list__item">
           <img
             :src="imagePath(item)"
             class="thumbnail"
@@ -14,8 +14,9 @@
               <p>{{ item.name }}</p>
               <p>Size: {{ item.size }}</p>
               <p>Color: {{ item.color }}</p>
+              <p>Quantity: {{ itemQuantities[item.name] }}</p>
             </div>
-            <p>${{ item.price }}</p>
+            <p>${{ item.price * itemQuantities[item.name] }}</p>
             <button
               type="button"
               @click="removeFromCart(item.id)"
@@ -105,6 +106,16 @@ export default {
     cartItems() {
       return this.$store.getters.cartItems;
     },
+    uniqueCartItems() {
+      let itemsByName = this.cartItems.reduce((itemsByName, cartItem) => {
+        if (!itemsByName.hasOwnProperty(cartItem.name)) {
+          itemsByName[cartItem.name] = cartItem;
+        }
+        return itemsByName;
+      }, {});
+
+      return Object.values(itemsByName);
+    },
     cartItemsCount() {
       return this.cartItems.length;
     },
@@ -119,6 +130,14 @@ export default {
     },
     salesTaxApplied() {
       return (this.subtotal * this.salesTax).toFixed(2);
+    },
+    itemQuantities() {
+      let quantities = this.cartItems.reduce((itemQuantities, cartItem) => {
+        itemQuantities[cartItem.name] =
+          (itemQuantities[cartItem.name] || 0) + 1;
+        return itemQuantities;
+      }, {});
+      return quantities;
     },
     total() {
       if (this.cartItemsCount <= 0) {
