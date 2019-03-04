@@ -25,16 +25,17 @@
                 <p>Color: {{ item.color }}</p>
                 <p>Subtotal: ${{ item.price * itemQuantities[item.name] }}</p>
               </div>
+              <div class="cart-list__quantity">
+                <p>Quantity: {{ itemQuantities[item.name] }}</p>
+                <button
+                  type="button"
+                  @click="removeFromCart(item.id)"
+                  class="btn cart-list__btn-remove"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-            <p>${{ item.price * itemQuantities[item.name] }}</p>
-            <button
-              type="button"
-              @click="removeFromCart(item.id)"
-              class="btn cart-list__btn-remove"
-            >
-              Remove
-            </button>
-          </div>
           </li>
         </ul>
         <p class="cart__btn-continue-shopping">
@@ -200,6 +201,10 @@ export default {
   margin-left: 2rem;
 }
 
+.cart-list__quantity {
+  padding-left: 2em;
+}
+
 .thumbnail {
   max-width: 50px;
   margin-top: 0.5rem;
@@ -207,6 +212,7 @@ export default {
 
 .cart-list__btn-remove {
   margin-top: 0.5rem;
+  font-weight: normal;
   &:hover {
     color: red;
   }
