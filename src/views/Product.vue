@@ -56,6 +56,7 @@ export default {
 .flex-col {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .flex-col--2 {
