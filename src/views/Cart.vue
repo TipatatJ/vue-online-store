@@ -2,20 +2,27 @@
   <div class="wrapper">
     <h1>Cart</h1>
     <div class="flex-col">
-          <img
-            :src="imagePath(item)"
-            class="thumbnail"
-            alt="product thumnail"
-          />
             <div>
-              <p>{{ item.name }}</p>
               <p>Size: {{ item.size }}</p>
               <p>Color: {{ item.color }}</p>
               <p>Quantity: {{ itemQuantities[item.name] }}</p>
       <div>
         <ul>
           <li v-for="item in uniqueCartItems" class="flex-col cart-list__item">
+            <router-link :to="{ name: 'product', params: { id: item.id } }">
+              <img
+                :src="imagePath(item)"
+                class="thumbnail"
+                alt="product thumnail"
+              />
+            </router-link>
             <div class="flex-col cart-list__item__details">
+                <p>
+                  <router-link
+                    :to="{ name: 'product', params: { id: item.id } }"
+                    >{{ item.name }}
+                  </router-link>
+                </p>
             </div>
             <p>${{ item.price * itemQuantities[item.name] }}</p>
             <button
