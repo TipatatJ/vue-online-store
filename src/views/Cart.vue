@@ -2,19 +2,20 @@
   <div class="wrapper">
     <h1>Cart</h1>
     <div class="flex-col">
-      <ul>
-        <li v-for="item in uniqueCartItems" class="flex-col cart-list__item">
           <img
             :src="imagePath(item)"
             class="thumbnail"
             alt="product thumnail"
           />
-          <div class="flex-col cart-list__item__details">
             <div>
               <p>{{ item.name }}</p>
               <p>Size: {{ item.size }}</p>
               <p>Color: {{ item.color }}</p>
               <p>Quantity: {{ itemQuantities[item.name] }}</p>
+      <div>
+        <ul>
+          <li v-for="item in uniqueCartItems" class="flex-col cart-list__item">
+            <div class="flex-col cart-list__item__details">
             </div>
             <p>${{ item.price * itemQuantities[item.name] }}</p>
             <button
@@ -25,8 +26,12 @@
               Remove
             </button>
           </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+        <p class="cart__btn-continue-shopping">
+          <router-link to="/">Continue Shopping</router-link>
+        </p>
+      </div>
       <section class="total-section" v-if="cartItemsCount > 0">
         <ul class="total-section-list">
           <li class="total-section__item">
@@ -163,6 +168,10 @@ export default {
 </script>
 
 <style>
+.cart__btn-continue-shopping {
+  text-align: right;
+}
+
 .cart-list {
   width: 70%;
   margin-right: 1rem;
