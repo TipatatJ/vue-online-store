@@ -55,6 +55,9 @@
           </p>
         </router-link>
       </section>
+      <button class="btn btn--grey" @click="recommendRandomOutfit">
+        Shuffle
+      </button>
     </div>
   </div>
 </template>
@@ -106,6 +109,11 @@ export default {
         Math.random() * allProductsInCategory.length
       );
       return allProductsInCategory[randomIndex].id;
+    },
+    recommendRandomOutfit() {
+      this.randomTopId = this.randomProductIdByCategory("Shirts");
+      this.randomBottomId = this.randomProductIdByCategory("Pants");
+      this.randomFootwearId = this.randomProductIdByCategory("Shoes");
     }
   }
 };
