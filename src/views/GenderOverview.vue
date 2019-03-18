@@ -20,6 +20,42 @@
         >}
       </li>
     </ul>
+    <div class="wrapper random-items-wrapper">
+      <h2>Our Recommendations</h2>
+      <p>Try these on for size!</p>
+      <section class="random-items">
+        <router-link
+          :to="{ name: 'product', params: { id: randomTop.id } }"
+          class="random-items__item"
+        >
+          <img class="product-image" :src="imagePath(randomTop)" alt="" />
+          <p class="product-title">{{ randomTop.name }}</p>
+          <p>
+            <em>${{ randomTop.price }}</em>
+          </p>
+        </router-link>
+        <router-link
+          :to="{ name: 'product', params: { id: randomBottom.id } }"
+          class="random-items__item"
+        >
+          <img class="product-image" :src="imagePath(randomBottom)" alt="" />
+          <p class="product-title">{{ randomBottom.name }}</p>
+          <p>
+            <em>${{ randomBottom.price }}</em>
+          </p>
+        </router-link>
+        <router-link
+          :to="{ name: 'product', params: { id: randomFootwear.id } }"
+          class="random-items__item"
+        >
+          <img class="product-image" :src="imagePath(randomFootwear)" alt="" />
+          <p class="product-title">{{ randomFootwear.name }}</p>
+          <p>
+            <em>${{ randomFootwear.price }}</em>
+          </p>
+        </router-link>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -29,6 +65,18 @@ import { imagePath } from "@/mixins/imagePath.js";
 export default {
   name: "GenderOverview",
   mixins: [imagePath],
+  created() {
+    this.randomTopId = this.randomProductIdByCategory("Shirts");
+    this.randomBottomId = this.randomProductIdByCategory("Pants");
+    this.randomFootwearId = this.randomProductIdByCategory("Shoes");
+  },
+  data() {
+    return {
+      randomTopId: null,
+      randomBottomId: null,
+      randomFootwearId: null
+    };
+  },
   computed: {
     gender() {
       return this.$route.params.gender;
@@ -38,12 +86,46 @@ export default {
     },
     productsByGender() {
       return this.$store.getters.productsByGender(this.gender);
+    },
+    randomTop() {
+      return this.$store.getters.product(this.randomTopId);
+    },
+    randomBottom() {
+      return this.$store.getters.product(this.randomBottomId);
+    },
+    randomFootwear() {
+      return this.$store.getters.product(this.randomFootwearId);
+    }
+  },
+  methods: {
+    randomProductIdByCategory(category) {
+      let allProductsInCategory = this.productsByGender.filter(
+        p => p.category === category
+      );
+      let randomIndex = Math.floor(
+        Math.random() * allProductsInCategory.length
+      );
+      return allProductsInCategory[randomIndex].id;
     }
   }
 };
 </script>
 
 <style lang="scss">
+.random-items-wrapper {
+  background: #fafafa;
+  text-align: center;
+  padding: 3rem;
+}
+.random-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.random-items__item {
+  flex: 0 0 33%;
+}
+
 .item-grid {
   list-style: none;
   padding-left: 0;
