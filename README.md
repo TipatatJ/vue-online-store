@@ -9,3 +9,4 @@ Links to the tutorial series:
 [Part 4](https://medium.com/@magyarn/building-an-online-store-with-vue-cli-part-4-612d99230f92),
 [Part 5](https://medium.com/@magyarn/building-an-online-store-with-vue-cli-part-5-232a5c3436c),
 [Part 6](https://medium.com/@magyarn/build-an-online-store-with-vue-cli-part-6-4482129d15f3)
+[Part 7](https://medium.com/@magyarn/building-an-online-store-with-vue-cli-part-7-8e7c84172e19)
