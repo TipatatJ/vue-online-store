@@ -21,6 +21,14 @@
       </div>
     </div>
     <router-view />
+    <div id="footer">
+      <a
+        href="https://github.com/pearlzhuzeng/vue-online-store"
+        target="_blank"
+        rel="noreferrer noopener"
+        >View source code on Github</a
+      >
+    </div>
   </div>
 </template>
 
@@ -62,5 +70,9 @@ export default {
 .nav-items__item {
   margin-left: 1rem;
   position: relative;
+}
+#footer {
+  margin: 3em;
+  text-align: center;
 }
 </style>

@@ -1,5 +1,7 @@
 # vue-online-store
 
+View live site at: https://vue-online-store.netlify.com/
+
 Followed the _Building an Online Store with Vue CLI_ tutorials by Nathan Magyar with modifications.
 
 Links to the tutorial series:
